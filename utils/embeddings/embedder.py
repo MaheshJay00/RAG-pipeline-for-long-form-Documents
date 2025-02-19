@@ -20,15 +20,15 @@ class TextEmbedder:
 
         embeddings = [self.generate_embedding(line.strip()).tolist() for line in text_lines if line.strip()]
 
-        # Save embeddings as JSON
+        
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump({"embeddings": embeddings, "texts": text_lines}, f, indent=4)
 
         print(f"Generated {len(embeddings)} embeddings and saved to {output_file}")
 
-# Example usage
+
 if __name__ == "__main__":
     embedder = TextEmbedder()
     
-    # Generate embeddings for preprocessed text
+    
     embedder.process_document("output/structured_text.txt", "output/embeddings.json")
