@@ -25,6 +25,6 @@ class LLMs:
 
 if __name__ == 'main':
     llms = LLMs()
-    test_prompt = "What is the termination clause in a contract?"
+    test_prompt = "What is the product ID?"
     response = llms.generate_response(test_prompt)
     print("generated answer :/n",response)
