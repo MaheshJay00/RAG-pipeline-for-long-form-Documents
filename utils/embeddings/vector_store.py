@@ -25,9 +25,9 @@ class VectorStore:
         """Loads the FAISS index from a file."""
         try:
             self.index = faiss.read_index(self.index_file)
-            print(f"✅ FAISS index loaded from {self.index_file}")
+            print(f" FAISS index loaded from {self.index_file}")
         except Exception as e:
-            print(f"❌ Error loading FAISS index: {e}")
+            print(f" Error loading FAISS index: {e}")
 
     def load_embeddings(self):
         """Loads embeddings and corresponding texts from a JSON file."""
@@ -36,14 +36,14 @@ class VectorStore:
                 data = json.load(f)
 
             embeddings = np.array(data["embeddings"], dtype=np.float32)
-            self.texts = data["texts"]  # ✅ Store document texts in self.texts
+            self.texts = data["texts"] 
 
             # Load FAISS index
             self.index.add(embeddings)
-            print(f"✅ Loaded {len(embeddings)} embeddings into FAISS.")
+            print(f" Loaded {len(embeddings)} embeddings into FAISS.")
 
         except Exception as e:
-            print(f"❌ Error loading embeddings: {e}")
+            print(f" Error loading embeddings: {e}")
 
     def search(self, query_embedding, top_k=5):
         """
@@ -54,15 +54,15 @@ class VectorStore:
         """
         distances, indices = self.index.search(np.array([query_embedding], dtype=np.float32), top_k)
 
-        # ✅ Ensure indices are valid before accessing self.texts
+    
         results = [self.texts[idx] for idx in indices[0] if 0 <= idx < len(self.texts)]
 
         return results
 
-# Example Usage
+
 if __name__ == "__main__":
     vector_store = VectorStore()
-    query_embedding = np.random.rand(768)  # Replace with real embedding
+    query_embedding = np.random.rand(768)  
     results = vector_store.search(query_embedding, top_k=3)
     print("\n🔹 Top Matching Documents:")
     for i, res in enumerate(results):
